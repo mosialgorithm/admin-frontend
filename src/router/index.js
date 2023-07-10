@@ -25,7 +25,8 @@ const routes = [
   {
     path: '/register',
     name: 'Register',
-    component: RegisterView
+    component: RegisterView,
+    meta: { loginRedirect: true }
   },
   {
     path: '/forgotPassword',

@@ -167,14 +167,33 @@ export default {
           email: this.email,
           password: this.password
         }
-
-        fetch(this.uri, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(user)
-        })
-          .then(() => { this.$router.push('/login') })
-          .catch(err => console.log(err.messages))
+        let existUser = ''
+        fetch(this.uri)
+          .then(res => res.json())
+          .then(data => {
+            existUser = data.filter(item => {
+              return item.email === this.email
+            });
+            if (existUser.length > 0) {
+              this.$notify({ type: "error", text: "This Email is Registered For Another User" });
+              this.$router.push('/register')
+            } else {
+              fetch(this.uri, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(user)
+              })
+                .then(() => {
+                  this.$notify({ type: "success", text: "User is Created Successfully" });
+                  this.$router.push('/login')
+                })
+                .catch(err => {
+                  this.$notify({ type: "error", text: "An Error is hapened" });
+                  this.$router.push('/register')
+                  console.log(err.messages)
+                })
+            }
+          })
       }
     }
   }

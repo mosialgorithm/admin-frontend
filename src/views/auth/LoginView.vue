@@ -1,15 +1,10 @@
 <template>
     <div class="login-box">
-        <div class="login-logo">
-            <a href="../../index2.html"><b>ورود به سایت</b></a>
-        </div>
-        <!-- /.login-logo -->
         <div class="card">
             <div class="card-header">
-                <div class="cared-title">ورود به سایت</div>
+                <div class="cared-title">ثبت نام در سایت</div>
             </div>
             <div class="card-body login-card-body">
-                <!-- <p class="login-box-msg">فرم زیر را تکمیل کنید و ورود بزنید</p> -->
                 <form @submit.prevent="userLogin">
                     <div class="input-group mb-3">
                         <input type="email" class="form-control" 
@@ -74,7 +69,10 @@ export default {
                 if(!this.user[0]){
                     this.$notify({type: "warn", text: "Email Address is Incorrect !" });
                     this.$router.push('/login')
-                } else if(this.user[0].password == this.password){
+                }
+                console.log(this.user[0].password)
+                console.log(this.password)
+                if(this.user[0].password == this.password){
                     localStorage.setItem("user_name", this.user[0].name)
                     localStorage.setItem("user_email", this.user[0].email)
                     this.$store.state.isAuthenticated = true
