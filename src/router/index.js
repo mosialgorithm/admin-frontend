@@ -16,6 +16,7 @@ const routes = [
     component: HomeView,
     meta: { loginRequired: true }
   },
+  // ---------------------- auth app ------------------------
   {
     path: '/login',
     name: 'Login',
@@ -38,6 +39,13 @@ const routes = [
     name: 'AuthUser',
     component: AuthUserView
   },
+  {
+    path: '/changePass',
+    name: 'changePass',
+    component: ChangePassView
+  },
+  // --------------------- end of auth app --------------------------
+  // --------------------- blog app ---------------------------------
   {
     path: '/changePass',
     name: 'changePass',

@@ -67,7 +67,7 @@ export default {
                     return item.email == this.email
                 });
                 if(!this.user[0]){
-                    this.$notify({type: "warn", text: "Email Address is Incorrect !" });
+                    // this.$notify({type: "warn", text: "Email Address is Incorrect !" });
                     this.$router.push('/login')
                 }
                 console.log(this.user[0].password)
@@ -76,15 +76,27 @@ export default {
                     localStorage.setItem("user_name", this.user[0].name)
                     localStorage.setItem("user_email", this.user[0].email)
                     this.$store.state.isAuthenticated = true
-                    this.$notify({ type: "success", text: "Login Success" });
+                    // this.$alert("Hello Vue Simple Alert.")
+                    this.$swal.fire({
+                        // toast: true,
+                        // position: 'top-left',
+                        // position: 'top-end',
+                        // width:'300 px',
+                        // height:'10 px',
+                        icon: 'success',
+                        title: 'Login Success',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                     this.$router.push('/')
                 } else {
+                    this.$swal('Login Failed');
                     // alert("your password is incorrect")
-                    this.$notify({type: "error", text: "Password is Incorrect" });
+                    // this.$notify({type: "error", text: "Password is Incorrect" });
                     this.$router.push('/login')
                 }
             })
-            .catch(err => console.log(err.messages));
+            // .catch(err => console.log(err.messages));
         }
     }
 
