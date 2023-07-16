@@ -1,19 +1,21 @@
 <template>
     <div class="container">
-        <form @submit.prevent="createPost">
+        <form @submit.prevent="editPost">
             <div class="form-group">
                 <label for="news_title">عنوان خبر</label>
-                <input type="text" class="form-control" id="news_title" aria-describedby="emailHelp" v-model="title">
+                <input type="text" class="form-control" id="news_title" aria-describedby="emailHelp" v-model="title"
+                    v-html="title">
             </div>
             <div class="form-group">
                 <label for="news_body">متن خبر</label>
                 <ckeditor :editor="editor" v-model="body" :config="editorConfig"></ckeditor>
             </div>
-            <div class="form-group form-check mt-5">
+            <p class="alert" :class="{'alert-danger':status==false, 'alert-success':status==true}">{{ status ? 'published' :  'Draft' }}</p>
+            <div class="form-group form-check">
                 <input type="checkbox" class="form-check-input" id="news_publish" v-model="status">
-                <label class="form-check-label" for="news_publish"> وضعیت انتشار </label>
+                <label class="form-check-label"> وضعیت انتشار </label>
             </div>
-            <button type="submit" class="btn btn-primary">ثبت و ذخیره اطلاعات</button>
+            <button type="submit" class="btn btn-primary">ویرایش و ذخیره اطلاعات</button>
         </form>
     </div>
 </template>
@@ -22,22 +24,21 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import CKEditor from "@ckeditor/ckeditor5-vue"
 
-// import { Image, ImageCaption, ImageResize, ImageStyle, ImageToolbar } from '@ckeditor/ckeditor5-image';
-// import { LinkImage } from '@ckeditor/ckeditor5-link';
-
 export default {
-    name: "NewPostView",
+    name: "PostView",
+    props: ['id'],
     components: {
         ckeditor: CKEditor.component
     },
     data() {
         return {
-            title: "",
-            body: "",
-            status: false,
-            uri: "http://localhost:3000/posts",
+            title: '',
+            body: '',
+            status: 'draft',
+            uri: 'http://localhost:3000/posts/' + this.id,
+            // ------------------- CKEditor -------------------------
             editor: ClassicEditor,
-            // editorData: "<p>Hello from CKEditor 5!</p>",
+            editorData: this.body,
             editorConfig: {
                 // The configuration of the editor.
                 height: '300px',
@@ -51,30 +52,48 @@ export default {
                 },
                 // toolbar: []
             }
+            // ------------------- CKEditor -------------------------
         }
     },
+
+    mounted() {
+        fetch(this.uri)
+            .then(res => res.json())
+            .then(data => {
+                this.title = data.title
+                this.body = data.body
+                this.staus = data.staus
+            })
+        // .catch(err => console.log(err.messages))
+    },
+
     methods: {
-        createPost() {
+        editPost() {
             let post = {
                 title: this.title,
                 body: this.body,
                 status: this.status
             }
+            console.log(JSON.stringify(post))
             fetch(this.uri, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(post)
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    title: post.title,
+                    body: post.body,
+                    status: post.status,
+                })
             })
                 .then(() => {
                     this.$swal.fire({
                         icon: 'success',
-                        title: 'Post is Created Successfully',
+                        title: 'Post is Editted Successfully',
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    this.$router.push('/allPost')
+                    this.$router.push(`/Post/${this.id}`)
                 })
-                .catch(err => console.log(err.messages))
+            // .catch(err => console.log(err.messages))
         }
     }
 

@@ -2,7 +2,9 @@
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/login">Login</router-link> |
-    <router-link to="/register">Register </router-link>
+    <router-link to="/register">Register </router-link> | 
+    <router-link :to="{name:'NewPost'}"> New Post </router-link> | 
+    <router-link :to="{name:'AllPost'}"> All Posts </router-link>
   </nav>
   <router-view />
 </template>
@@ -18,7 +20,7 @@ export default {
 </script>
 <style lang="scss">
 #app {
-  /* font-family: Avenir, Helvetica, Arial, sans-serif; */
+  // font-family: Avenir, Helvetica, Arial, sans-serif; 
   /* -webkit-font-smoothing: antialiased;
   /* -moz-osx-font-smoothing: grayscale; */
   text-align: center;

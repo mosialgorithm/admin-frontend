@@ -33,15 +33,23 @@ import "../plugins/fastclick/fastclick.js"
 // import "../dist/js/demo.js"
 
 
-
+// ================= Sweet Alert ========================
 import VueSweetalert2 from 'vue-sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
 
 const options = {
     confirmButtonColor: '#41b882',
     cancelButtonColor: '#ff7674',
-  };
+};
+// =======================================================
 
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
+// ===================== Image Uploading ===================================
+// =========================================================================
 
-createApp(App).use(store).use(router).use(VueSweetalert2, options).mount('#app')
+createApp(App).use(store).use(router)
+.use(VueSweetalert2, options)
+.component('QuillEditor', QuillEditor)
+.mount('#app')

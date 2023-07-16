@@ -1,11 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView       from '../views/HomeView.vue'
-import LoginView      from '../views/auth/LoginView.vue'
-import RegisterView   from '../views/auth/RegisterView.vue'
-import ForgotPassView from '../views/auth/ForgotPassView.vue'
-import AuthUserView   from '../views/auth/AuthUserView.vue'
-import ChangePassView from '../views/auth/ChangePassView.vue'
-import store          from '@/store'
+import store            from '@/store'
+// ---------------------------------------------------------------
+import HomeView         from '../views/HomeView.vue'
+// ---------------------------------------------------------------
+import LoginView        from '../views/auth/LoginView.vue'
+import RegisterView     from '../views/auth/RegisterView.vue'
+import ForgotPassView   from '../views/auth/ForgotPassView.vue'
+import AuthUserView     from '../views/auth/AuthUserView.vue'
+import ChangePassView   from '../views/auth/ChangePassView.vue'
+// ---------------------------------------------------------------
+import NewPostView      from '../views/blog/NewPostView.vue'
+import AllPostView      from '../views/blog/AllPostView.vue'
+import PostView         from '../views/blog/PostView.vue'
+import PostEditView     from '../views/blog/PostEditView.vue'
+
 
 
 
@@ -47,9 +55,26 @@ const routes = [
   // --------------------- end of auth app --------------------------
   // --------------------- blog app ---------------------------------
   {
-    path: '/changePass',
-    name: 'changePass',
-    component: ChangePassView
+    path: '/newPost',
+    name: 'NewPost',
+    component: NewPostView
+  },
+  {
+    path: '/allPost',
+    name: 'AllPost',
+    component: AllPostView
+  },
+  {
+    path: '/post/:id',
+    name: 'Post',
+    component: PostView,
+    props: true
+  },
+  {
+    path: '/post/edit/:id',
+    name: 'PostEdit',
+    component: PostEditView,
+    props: true
   },
 ]
 

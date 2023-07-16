@@ -184,11 +184,11 @@ export default {
                 body: JSON.stringify(user)
               })
                 .then(() => {
-                  this.$notify({ type: "success", text: "User is Created Successfully" });
+                  // this.$notify({ type: "success", text: "User is Created Successfully" });
                   this.$router.push('/login')
                 })
                 .catch(err => {
-                  this.$notify({ type: "error", text: "An Error is hapened" });
+                  // this.$notify({ type: "error", text: "An Error is hapened" });
                   this.$router.push('/register')
                   console.log(err.messages)
                 })

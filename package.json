@@ -7,7 +7,13 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-balloon-block": "^38.1.1",
+    "@ckeditor/ckeditor5-build-classic": "^38.1.1",
+    "@ckeditor/ckeditor5-image": "^38.1.1",
+    "@ckeditor/ckeditor5-vue": "^5.1.0",
+    "@vueup/vue-quill": "^1.2.0",
     "core-js": "^3.8.3",
+    "quill-blot-formatter": "^1.0.5",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vue-sweetalert2": "^5.0.5",
